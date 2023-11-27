@@ -18,7 +18,6 @@
 #define BREAK_READWRITE 0x3
 #define ENABLE_BREAKPOINT(x) (0x1<<(x*2))
 #define ENABLE_BREAK_WRITE(x) (BREAK_WRITE<<(16+(x*2)))
-#define ENABLE_BREAK_READ(x) (BREAK_READ<<(16+(x*2)))
 #define ENABLE_BREAK_READWRITE(x) (BREAK_READWRITE<<(16+(x*2)))
 char program[FILENAME_MAX];
 volatile sig_atomic_t handled=0;
@@ -105,7 +104,7 @@ int main(int argc, char**argv)
 {
     extern int errno;
     strcpy(program,basename(argv[0]));
-    /*const size_t n=5;
+    const size_t n=5;
     char vett[5]={'c','i','a','o','\0'};
     if((installBreakpoint(vett,n,0,hook))==-1)
     {
@@ -118,18 +117,6 @@ int main(int argc, char**argv)
     }
     printf("%s: handled: %d\n",program,handled);
     if((uninstallBreakpoint(0,n))==-1)
-    {
-        exit(EXIT_FAILURE);
-    }
-    exit(EXIT_SUCCESS);*/
-    int a=8;
-    if((installBreakpoint(&a,1,0,hook))==-1)
-    {
-        exit(EXIT_FAILURE);
-    }
-    printf("a: %d\n",a);
-    printf("%s: handled: %d\n",program,handled);
-    if((uninstallBreakpoint(0,1))==-1)
     {
         exit(EXIT_FAILURE);
     }
